@@ -20,6 +20,7 @@ h1 {
 #form-account, #form-product {
   width: 100vw;
   border: 1px solid #000;
+  border-radius: 10px;
 }
 
 #form-account {

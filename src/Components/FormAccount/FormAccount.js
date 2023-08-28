@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './FormAccount.css'
+import { useEqual } from '../Hooks/useEqual'
 
 function FormAccount({setIsAccEmpty, setIsEqual}) {
 
@@ -37,17 +38,20 @@ function FormAccount({setIsAccEmpty, setIsEqual}) {
         setRpassword('')
     }
 
+    const validateEqual = useEqual(password,rpassword) // já que não dá pra rodar um custom hook dentro de uma função que não seja componente, criei uma variável 
+                                                        //para armazenar o valor da validação e depois jogar na função.
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (name.length === 0 || email.length === 0 || password.length === 0 || rpassword.length === 0){
             setIsAccEmpty(true)
         } else {
             setIsAccEmpty(false)
-            if(password !== rpassword){
-                setIsEqual(false)
-            } else {
+            if (validateEqual) {
                 setIsEqual(true)
                 resetForm()
+            } else {
+                setIsEqual(false)
             }
         }
     }

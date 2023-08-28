@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './FormProduct.css'
+import { useCPF } from '../Hooks/useCPF'
 
 function FormProduct({ setIsProdEmpty, setIsCpfValid}) {
  
@@ -7,32 +8,6 @@ function FormProduct({ setIsProdEmpty, setIsCpfValid}) {
     const [email, setEmail] = useState('')
     const [cpf, setCPF] = useState('')
     const [product, setProduct] = useState('')
-
-     //fonte do código abaixo: https://www.devmedia.com.br/validar-cpf-com-javascript/23916
-     //função feita para checar se o CPF é valido ou não
-     const testCPF = (strCPF) => {
-        let Soma;
-        let Resto;
-        let i;
-      
-        Soma = 0;
-        if (strCPF === "00000000000") return false;
-      
-        for (i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
-        Resto = (Soma * 10) % 11;
-      
-        if (Resto === 10 || Resto === 11) Resto = 0;
-        if (Resto !== parseInt(strCPF.substring(9, 10))) return false;
-      
-        Soma = 0;
-        for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
-        Resto = (Soma * 10) % 11;
-      
-        if (Resto === 10 || Resto === 11) Resto = 0;
-        if (Resto !== parseInt(strCPF.substring(10, 11))) return false;
-      
-        return true;
-    };
 
     const handleChange = (event) => {
         const {id, value} = event.target
@@ -46,7 +21,6 @@ function FormProduct({ setIsProdEmpty, setIsCpfValid}) {
                 break
             case 'cpf':
                 setCPF(value)
-                setIsCpfValid(false)
                 break
             case 'product':
                 setProduct(value.toString())
@@ -64,20 +38,24 @@ function FormProduct({ setIsProdEmpty, setIsCpfValid}) {
         setProduct('')
     }
 
+    const validateCPF = useCPF(cpf) //transformei a função utilizada para verificar o CPF num hook
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (name.length === 0 || email.length === 0 || cpf.length === 0 || product.length === 0){
             setIsProdEmpty(true)
-            setIsCpfValid(false)
         } else {
             setIsProdEmpty(false)
+            // o cpf só irá ser checado após a validação de campos vazios, o if usará o resultado do custom hook criado para verificação do CPF
             if (cpf.length >= 11) { //a função do teste cpf só pode ser acessada se o cpf tiver 11 caracteres, se não o programa da erro
-                if (testCPF(cpf)) {
+                if (validateCPF) {
                     setIsCpfValid(true)
                     resetForm()
                 } else {
                     setIsCpfValid(false)
                 }
+            } else {
+                setIsProdEmpty(true)
             }
         }
     }
