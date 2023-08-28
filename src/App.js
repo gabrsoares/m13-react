@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import FormAccount from './Components/FormAccount/FormAccount';
 import FormProduct from './Components/FormProduct/FormProduct';
 import './App.css';
-import Validation from './Components/Validation/Validation';
 import { useValidation } from './Components/Hooks/useValidation';
+import Validation from './Components/Validation/Validation';
 
 function App() {
   const [isAccEmpty, setIsAccEmpty] = useState(false)
