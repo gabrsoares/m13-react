@@ -4,6 +4,7 @@ import FormProduct from './Components/FormProduct/FormProduct';
 import './App.css';
 import { useValidation } from './Components/Hooks/useValidation';
 import Validation from './Components/Validation/Validation';
+import DataResult from './Components/DataResult/DataResult';
 
 function App() {
   const [isAccEmpty, setIsAccEmpty] = useState(false)
@@ -11,24 +12,28 @@ function App() {
   const [isEqual, setIsEqual] = useState(true)
   const [validateCPF, setValidateCPF] = useState('')
   const [isCpfValid, setIsCpfValid] = useState(true)
+  const [userData, setUserData] = useState([])
 
   return (
     <div className="App">
       <h1>Formulários</h1>
       <div id='content'>
         <div id='form-account'>
-          <FormAccount setIsAccEmpty={setIsAccEmpty} setIsEqual={setIsEqual}/>
+          <FormAccount setIsAccEmpty={setIsAccEmpty} setIsEqual={setIsEqual} setUserData={setUserData} userData={userData}/>
           <Validation>
             <p>{useValidation(isAccEmpty,"empty")}</p>
             <p>{useValidation(isEqual,"equal")}</p>
           </Validation>
         </div>
         <div id='form-product'>
-          <FormProduct setIsProdEmpty={setIsProdEmpty} validateCPF={validateCPF} setValidateCPF={setValidateCPF} setIsCpfValid={setIsCpfValid}/>
+          <FormProduct setIsProdEmpty={setIsProdEmpty} validateCPF={validateCPF} setValidateCPF={setValidateCPF} setIsCpfValid={setIsCpfValid} setUserData={setUserData} userData={userData}/>
           <Validation>
             <p>{useValidation(isProdEmpty,"empty")}</p>
             <p>{useValidation(isCpfValid,"cpf")}</p>
           </Validation>
+        </div>
+        <div id='results'>
+          <DataResult userData={userData}/>
         </div>
       </div>
       

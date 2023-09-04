@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './FormAccount.css'
 import { useEqual } from '../Hooks/useEqual'
 
-function FormAccount({setIsAccEmpty, setIsEqual}) {
+function FormAccount({setIsAccEmpty, setIsEqual, setUserData, userData}) {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -49,6 +49,12 @@ function FormAccount({setIsAccEmpty, setIsEqual}) {
             setIsAccEmpty(false)
             if (validateEqual) {
                 setIsEqual(true)
+                setUserData([...userData, {
+                    name: name,
+                    email: email,
+                    password: password,
+                    date: new Date().toLocaleTimeString()
+                }])
                 resetForm()
             } else {
                 setIsEqual(false)

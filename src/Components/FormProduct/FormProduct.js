@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './FormProduct.css'
 import { useCPF } from '../Hooks/useCPF'
 
-function FormProduct({ setIsProdEmpty, setIsCpfValid}) {
+function FormProduct({ setIsProdEmpty, setIsCpfValid, setUserData, userData}) {
  
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -50,6 +50,13 @@ function FormProduct({ setIsProdEmpty, setIsCpfValid}) {
             if (cpf.length >= 11) { //a função do teste cpf só pode ser acessada se o cpf tiver 11 caracteres, se não o programa da erro
                 if (validateCPF) {
                     setIsCpfValid(true)
+                    setUserData([...userData, {
+                        name:name,
+                        email: email,
+                        cpf: cpf,
+                        product: product,
+                        date: new Date().toLocaleTimeString()
+                    }])
                     resetForm()
                 } else {
                     setIsCpfValid(false)

@@ -17,7 +17,7 @@ h1 {
   color: #fff;
 }
 
-#form-account, #form-product {
+#form-account, #form-product, #results {
   width: 100vw;
   border: 1px solid #000;
   border-radius: 10px;
@@ -30,6 +30,10 @@ h1 {
 
 #form-product {
   background-color: #33231E;
+}
+
+#results {
+  background-color: #E6C784;
 }
 
 .form {
@@ -71,7 +75,7 @@ button {
 }
 
 @media (min-width: 500px) {
-  #form-account, #form-product {
+  #form-account, #form-product, #results {
     width: 480px;
   }
 }
@@ -83,7 +87,7 @@ button {
     justify-content: space-evenly;
   }
 
-  #form-account, #form-product {
+  #form-account, #form-product, #results {
     height: 400px;
     margin: 0;
   }
