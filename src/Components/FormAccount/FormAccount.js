@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './FormAccount.css'
 import { useEqual } from '../Hooks/useEqual'
 
-function FormAccount({setIsAccEmpty, setIsEqual, setUserData, userData}) {
+function FormAccount({setIsAccEmpty, setIsEqual, setUserData, userData, userId, setUserId}) {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -49,10 +49,12 @@ function FormAccount({setIsAccEmpty, setIsEqual, setUserData, userData}) {
             setIsAccEmpty(false)
             if (validateEqual) {
                 setIsEqual(true)
+                setUserId(userId + 1) //aumenta o numero do id para exibir no resultado
                 setUserData([...userData, {
                     name: name,
                     email: email,
                     password: password,
+                    id: userId, // estava com problemas em exibir o id e colocar dentro do objeto foi a forma como consegui solucionar o problema
                     date: new Date().toLocaleTimeString()
                 }])
                 resetForm()

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './FormProduct.css'
 import { useCPF } from '../Hooks/useCPF'
 
-function FormProduct({ setIsProdEmpty, setIsCpfValid, setUserData, userData}) {
+function FormProduct({ setIsProdEmpty, setIsCpfValid, setUserData, userData, userId, setUserId}) {
  
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -50,11 +50,13 @@ function FormProduct({ setIsProdEmpty, setIsCpfValid, setUserData, userData}) {
             if (cpf.length >= 11) { //a função do teste cpf só pode ser acessada se o cpf tiver 11 caracteres, se não o programa da erro
                 if (validateCPF) {
                     setIsCpfValid(true)
+                    setUserId(userId + 1) //aumenta o numero do id para exibir no resultado
                     setUserData([...userData, {
                         name:name,
                         email: email,
                         cpf: cpf,
                         product: product,
+                        id: userId, // estava com problemas em exibir o id e colocar dentro do objeto foi a forma como consegui solucionar o problema
                         date: new Date().toLocaleTimeString()
                     }])
                     resetForm()

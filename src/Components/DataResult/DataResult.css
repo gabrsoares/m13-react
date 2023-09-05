@@ -1,0 +1,17 @@
+#data-result {
+    padding: 1rem;
+}
+
+.data {
+    padding: 1rem;
+}
+
+.sort-buttons button{
+    margin: 1rem;
+}
+
+.name, .email {
+    max-width: 100%;
+    word-wrap: break-word;
+    text-align: center;
+}
